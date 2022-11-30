@@ -2,15 +2,15 @@ DROP DATABASE IF EXISTS SpotifyClone;
 
 CREATE DATABASE SpotifyClone;
 
-USE SpotifyClone
+USE SpotifyClone;
 
-  CREATE TABLE SpotifyClone.plan(
-      plan_id INT PRIMARY KEY AUTO_INCREMENT,
-      plan_name VARCHAR(45) NOT NULL,
-      plan_price DOUBLE NOT NULL,
-  ) engine = InnoDB;
+CREATE TABLE plan(
+    plan_id INT PRIMARY KEY AUTO_INCREMENT,
+    plan_name VARCHAR(45) NOT NULL,
+    plan_price DOUBLE NOT NULL
+) engine = InnoDB;
 
-  CREATE TABLE SpotifyClone.`user`(
+CREATE TABLE SpotifyClone.`user`(
     user_id INT PRIMARY KEY AUTO_INCREMENT,
     user_name VARCHAR(200) NOT NULL,
     user_age INT NOT NULL,
@@ -18,23 +18,23 @@ USE SpotifyClone
     signature_date DATE NOT NULL,
     FOREIGN KEY (plan_id) REFERENCES plan(plan_id)
 ) engine = InnoDB;
-
+  
 CREATE TABLE artist (
     artist_id INT PRIMARY KEY AUTO_INCREMENT,
     artist_name VARCHAR(200) NOT NULL
 ) engine = InnoDB;
 
-CREATE TABLE artist_follower (
+CREATE TABLE artist_follower(
 	user_id INT NOT NULL,
     artist_id INT NOT NULL,
     CONSTRAINT PRIMARY KEY(user_id,artist_id),
     FOREIGN KEY (user_id) REFERENCES user(user_id),
     FOREIGN KEY (artist_id) REFERENCES artist(artist_id)
 ) engine = InnoDB;
-
+  
 CREATE TABLE album(
 	album_id INT PRIMARY KEY AUTO_INCREMENT,
-    album_name VARCHAR(150) NOT NULL,
+    album_name VARCHAR(200) NOT NULL,
     artist_id INT NOT NULL,
     release_year INT NOT NULL,
     FOREIGN KEY (artist_id) REFERENCES artist(artist_id)
@@ -42,7 +42,7 @@ CREATE TABLE album(
 
 CREATE TABLE song(
 	song_id INT PRIMARY KEY AUTO_INCREMENT,
-    song_name VARCHAR(250) NOT NULL,
+    song_name VARCHAR(200) NOT NULL,
     song_duration INT NOT NULL,
 	album_id INT NOT NULL,
     FOREIGN KEY (album_id) REFERENCES album(album_id)
@@ -63,7 +63,7 @@ VALUES
   ('familiar', 7.99),
   ('universitário', 5.99),
   ('pessoal', 6.99);
-
+  
 INSERT INTO user (user_name, user_age,plan_id,signature_date)
 VALUES
   ('Barbara Liskov', 82,1,'2019-10-20'),
@@ -76,7 +76,7 @@ VALUES
   ('Christopher Alexander', 85,4,'2019-06-05'),
   ('Judith Butler', 45,4,'2020-05-13'),
   ('Jorge Amado', 58,4,'2017-02-17');
-
+  
 INSERT INTO artist (artist_name)
 VALUES
   ('Beyoncé'),
@@ -102,7 +102,7 @@ VALUES
   (7,6),
   (9,3),
   (10,2);
-
+  
 INSERT INTO album (album_name,artist_id,release_year)
 VALUES
   ('Renaissance',1,2022),
@@ -113,7 +113,7 @@ VALUES
   ('QVVJFA?',4,2003),
   ('Somewhere Far Beyond',5,2007),
   ('I Put A Spell On You',6,2012);
-
+  
 INSERT INTO song (song_name,song_duration,album_id)
 VALUES
   ('BREAK MY SOUL',279,1),
@@ -126,7 +126,7 @@ VALUES
   ('Samba em Paris',267,6),
   ('The Bard’s Song',244,7),
   ('Feeling Good',100,8);
-
+  
 INSERT INTO history_playback (user_id,song_id,reproduction_date)
 VALUES
   (1,8,'2022-02-28 10:45:55'),
